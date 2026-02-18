@@ -51,9 +51,19 @@ public class UserController {
 
         try {
             userService.deleteUser(id);
-            return ResponseEntity.noContent().build(); // 204
+            return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // 404
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @Valid @RequestBody UserCreateDto dto){
+        try{
+            userService.updateUser(id, dto);
+            return ResponseEntity.noContent().build();
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
         }
     }
 

@@ -49,6 +49,20 @@ public class UserService {
         return new ArrayList<>(users.values());
     }
 
+    public UserResponseDto updateUser(long id, UserCreateDto dto) {
+        User user = users.get(id);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        return new UserResponseDto(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
+    }
+
     public void deleteUser(long id) {
         if(!users.containsKey(id)) {
             throw new RuntimeException("User not found");
